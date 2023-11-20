@@ -3,5 +3,6 @@ export const reportSchema = {
   "idate": "orderDate",
   "district": "sourceName",
   "police_station": "cryptoCurrency",
-  "status": "status"
+  "status": "status",
+  "ruuid": "id"
 };
