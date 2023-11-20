@@ -434,6 +434,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                 try {
                   const res = await axios.post(`/add_to_forum/${modalOpen}`, formValues);
                   toast.success(res.data.message);
+                  setRefetch(prev => !prev);
                   setModalOpen(null);
                 } catch(err) {
                   toast.error("Failed to add to forum.")
