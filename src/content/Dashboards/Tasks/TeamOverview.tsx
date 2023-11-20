@@ -78,7 +78,7 @@ function TeamOverview() {
             >
               <AvatarWrapper
                 alt="Remy Sharp"
-                src="/static/images/avatars/4.jpg"
+                src="/static/images/avatars/user.png"
               />
             </Badge>
             <Box
@@ -87,23 +87,23 @@ function TeamOverview() {
               }}
             >
               <Typography variant="h4" noWrap gutterBottom>
-                Hanna Siphron
+                User 1
               </Typography>
               <Typography variant="subtitle2" noWrap>
-                Web Dev Support Team
+                Support Team
               </Typography>
             </Box>
           </Box>
 
-          <Typography variant="subtitle2" gutterBottom>
+          {/* <Typography variant="subtitle2" gutterBottom>
             <Text color="black">4</Text> out of <Text color="black">6</Text>{' '}
             tasks completed
-          </Typography>
+          </Typography> 
           <LinearProgressWrapper
             value={65}
             color="primary"
             variant="determinate"
-          />
+          />*/}
         </Box>
       </Grid>
       <Grid item xs={12} md={4}>
@@ -134,7 +134,7 @@ function TeamOverview() {
             >
               <AvatarWrapper
                 alt="Ann Saris"
-                src="/static/images/avatars/3.jpg"
+                src="/static/images/avatars/user.png"
               />
             </Badge>
             <Box
@@ -143,15 +143,15 @@ function TeamOverview() {
               }}
             >
               <Typography variant="h4" noWrap gutterBottom>
-                Ann Saris
+                User 2
               </Typography>
               <Typography variant="subtitle2" noWrap>
-                Senior Book Keeper
+                Support Team
               </Typography>
             </Box>
           </Box>
 
-          <Typography variant="subtitle2" gutterBottom>
+          {/* <Typography variant="subtitle2" gutterBottom>
             <Text color="black">2</Text> out of <Text color="black">8</Text>{' '}
             tasks completed
           </Typography>
@@ -159,7 +159,7 @@ function TeamOverview() {
             value={25}
             color="primary"
             variant="determinate"
-          />
+          /> */}
         </Box>
       </Grid>
       <Grid item xs={12} md={4}>
@@ -190,7 +190,7 @@ function TeamOverview() {
             >
               <AvatarWrapper
                 alt="James Stanton"
-                src="/static/images/avatars/5.jpg"
+                src="/static/images/avatars/user.png"
               />
             </Badge>
             <Box
@@ -199,15 +199,15 @@ function TeamOverview() {
               }}
             >
               <Typography variant="h4" noWrap gutterBottom>
-                James Stanton
+                User 3
               </Typography>
               <Typography variant="subtitle2" noWrap>
-                Phone Pre-Sales Assistant
+                Support Team
               </Typography>
             </Box>
           </Box>
 
-          <Typography variant="subtitle2" gutterBottom>
+          {/* <Typography variant="subtitle2" gutterBottom>
             <Text color="black">10</Text> out of <Text color="black">20</Text>{' '}
             tasks completed
           </Typography>
@@ -215,7 +215,7 @@ function TeamOverview() {
             value={50}
             color="primary"
             variant="determinate"
-          />
+          /> */}
         </Box>
       </Grid>
     </Grid>
