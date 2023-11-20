@@ -2,6 +2,7 @@ import { FC, ChangeEvent, useState } from 'react';
 import { format } from 'date-fns';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   Tooltip,
   Divider,
@@ -30,6 +31,8 @@ import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import BulkActions from './BulkActions';
+import axios from '@/config/axiosConfig';
+import { id } from 'date-fns/locale';
 
 interface RecentOrdersTableProps {
   className?: string;
@@ -42,21 +45,21 @@ interface Filters {
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
   const map = {
-    inaccurate: {
+    Inaccurate: {
       text: 'Failed',
       color: 'error'
     },
-    completed: {
-      text: 'Completed',
+    "In-Progress": {
+      text: 'In-Progress',
       color: 'success'
     },
-    pending: {
+    Pending: {
       text: 'Pending',
       color: 'warning'
     }
   };
 
-  const { text, color }: any = map[cryptoOrderStatus ?? "pending"];
+  const { text, color }: any = map[cryptoOrderStatus ?? "Pending"];
 
   return <Label color={color}>{text}</Label>;
 };
@@ -84,7 +87,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
+const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, setRefetch }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -94,7 +97,6 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
-
   const statusOptions = [
     {
       id: 'all',
@@ -174,6 +176,26 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     selectedCryptoOrders.length === cryptoOrders.length;
   const theme = useTheme();
 
+  const updateReportStatus = async (reportId) => {
+    try {
+      const result = cryptoOrders.find((item) => item.id === reportId);
+      if(result.status == "Pending"){
+        await axios.put(`/update_report_status/${reportId}`, { status: 'In-Progress' });
+      }
+      else{
+        await axios.put(`/update_report_status/${reportId}`, { status: 'Pending' });
+      }
+  
+      setSelectedCryptoOrders((prevSelectedCryptoOrders) =>
+        prevSelectedCryptoOrders.map((id) => (id === reportId ? 'In-Progress' : id))
+      );
+      setRefetch(prev => !prev);
+    } catch (error) {
+      console.error('Error updating report status:', error);
+    }
+  };
+
+  
   return (
     <Card>
       {selectedBulkActions && (
@@ -307,7 +329,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                     {getStatusLabel(cryptoOrder.status)}
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="Edit Order" arrow>
+                    <Tooltip title="Edit Report" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -317,11 +339,15 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                         }}
                         color="inherit"
                         size="small"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          updateReportStatus(cryptoOrder.id);
+                        }}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete Order" arrow>
+                    <Tooltip title="Delete Report" arrow>
                       <IconButton
                         sx={{
                           '&:hover': { background: theme.colors.error.lighter },

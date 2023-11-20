@@ -10,6 +10,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 
 function RecentOrders() {
+  const [refetch, setRefetch] = useState(true);
   useEffect(() => {
     (async () => {
       try {
@@ -24,7 +25,7 @@ function RecentOrders() {
         toast.error("Failed to fetch reports.");
       }
     })();
-  }, []);
+  }, [refetch]);
   const [cryptoOrders, setCryptoOrders] = useState([]);
   console.log(cryptoOrders)
   /* const cryptoOrders: CryptoOrder[] = [
@@ -162,7 +163,7 @@ function RecentOrders() {
 
   return (
     <Card>
-      <RecentOrdersTable cryptoOrders={cryptoOrders} />
+      <RecentOrdersTable cryptoOrders={cryptoOrders} setRefetch={setRefetch} />
     </Card>
   );
 }
