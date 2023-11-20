@@ -23,13 +23,20 @@ import {
   MenuItem,
   Typography,
   useTheme,
-  CardHeader
+  CardHeader,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Stack,
+  TextField,
+  Button
 } from '@mui/material';
 
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import ForumIcon from '@mui/icons-material/Forum';
 import BulkActions from './BulkActions';
 import axios from '@/config/axiosConfig';
 import { id } from 'date-fns/locale';
@@ -45,17 +52,17 @@ interface Filters {
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
   const map = {
-    Inaccurate: {
+    Complete: {
       text: 'Failed',
-      color: 'error'
+      color: 'success'
     },
     "In-Progress": {
       text: 'In-Progress',
-      color: 'success'
+      color: 'warning'
     },
     Pending: {
       text: 'Pending',
-      color: 'warning'
+      color: 'error'
     }
   };
 
@@ -97,6 +104,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
+  const [modalOpen, setModalOpen] = useState<null | string>(null);
+  const [formValues,setFormValues] = useState({
+    grant: "", 
+    description: "",
+  })
   const statusOptions = [
     {
       id: 'all',
@@ -376,6 +388,22 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                         <DeleteTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
+                    <Tooltip title="Add To Forum" arrow>
+                      <IconButton
+                        sx={{
+                          '&:hover': { background: theme.colors.primary.lighter },
+                          color: theme.palette.primary.main
+                        }}
+                        color="inherit"
+                        size="small"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setModalOpen(cryptoOrder.id);
+                        }}
+                      >
+                        <ForumIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
               );
@@ -394,6 +422,43 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
           rowsPerPageOptions={[5, 10, 25, 30]}
         />
       </Box>
+      <Dialog onClose={() => setModalOpen(null)} open={!!modalOpen} fullWidth>
+            <DialogTitle>
+              <Typography variant="h3">
+                Add to forum
+              </Typography>
+            </DialogTitle>
+            <DialogContent>
+              <form onSubmit={async e => {
+                e.preventDefault()
+                try {
+                  const res = await axios.post(`/add_to_forum/${modalOpen}`, formValues);
+                  toast.success(res.data.message);
+                  setModalOpen(null);
+                } catch(err) {
+                  toast.error("Failed to add to forum.")
+                }
+              }}>
+                <Stack spacing={2} m={2}>
+                  <TextField 
+                    required 
+                    label="Description"  
+                    variant="outlined" 
+                    value={formValues.description} 
+                    onChange={e => setFormValues(prev => ({...prev, description: e.target.value}))}
+                  />
+                  <TextField 
+                    required 
+                    label="Grant"  
+                    variant="outlined" 
+                    value={formValues.grant} 
+                    onChange={e => setFormValues(prev => ({...prev, grant: e.target.value}))}
+                  />
+                  <Button variant="contained" type="submit">Submit</Button>
+                </Stack>
+              </form>
+            </DialogContent>
+      </Dialog>
     </Card>
   );
 };
