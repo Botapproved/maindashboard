@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import Scrollbar from 'src/components/Scrollbar';
 import { SidebarContext } from 'src/contexts/SidebarContext';
+import Image from "next/image";
 
 import {
   Box,
@@ -56,14 +57,23 @@ function Sidebar() {
         <Scrollbar>
           <Box mt={3}>
             <Box
-              mx={2}
+              mx={6}
+              mt={5}
               sx={{
-                width: 52
+                width: 180
               }}
             >
-              <Logo />
+
+              <Image
+                  src="/static/images/logo/dark1.png"
+                  alt="logo"
+                  width={175}
+                  height={45}
+                  className="hidden w-full dark:block"
+                />
             </Box>
           </Box>
+          
           <Divider
             sx={{
               mt: theme.spacing(3),
