@@ -13,6 +13,8 @@ import createEmotionCache from 'src/createEmotionCache';
 import { SidebarProvider } from 'src/contexts/SidebarContext';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -47,6 +49,7 @@ function TokyoApp(props: TokyoAppProps) {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <CssBaseline />
             {getLayout(<Component {...pageProps} />)}
+            <ToastContainer theme='dark'/>
           </LocalizationProvider>
         </ThemeProvider>
       </SidebarProvider>

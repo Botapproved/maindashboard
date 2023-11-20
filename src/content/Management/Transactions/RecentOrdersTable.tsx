@@ -42,7 +42,7 @@ interface Filters {
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
   const map = {
-    failed: {
+    inaccurate: {
       text: 'Failed',
       color: 'error'
     },
@@ -56,7 +56,7 @@ const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
     }
   };
 
-  const { text, color }: any = map[cryptoOrderStatus];
+  const { text, color }: any = map[cryptoOrderStatus ?? "pending"];
 
   return <Label color={color}>{text}</Label>;
 };
@@ -257,9 +257,9 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                     >
                       {cryptoOrder.orderDetails}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {format(cryptoOrder.orderDate, 'MMMM dd yyyy')}
-                    </Typography>
+                    {/* <Typography variant="body2" color="text.secondary" noWrap>
+                      {cryptoOrder.orderDate}
+                    </Typography> */}
                   </TableCell>
                   <TableCell>
                     <Typography
@@ -269,7 +269,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.orderID}
+                      {cryptoOrder.orderDate}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -293,15 +293,15 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       color="text.primary"
                       gutterBottom
                       noWrap
-                    >
-                      {cryptoOrder.amountCrypto}
+                    >{/* 
+                      {cryptoOrder.amountCrypto} */}
                       {cryptoOrder.cryptoCurrency}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
+                    {/* <Typography variant="body2" color="text.secondary" noWrap>
                       {numeral(cryptoOrder.amount).format(
                         `${cryptoOrder.currency}0,0.00`
                       )}
-                    </Typography>
+                    </Typography> */}
                   </TableCell>
                   <TableCell align="right">
                     {getStatusLabel(cryptoOrder.status)}

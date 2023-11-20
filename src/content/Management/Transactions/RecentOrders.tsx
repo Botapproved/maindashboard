@@ -2,9 +2,32 @@ import { Card } from '@mui/material';
 import { CryptoOrder } from '@/models/crypto_order';
 import RecentOrdersTable from './RecentOrdersTable';
 import { subDays } from 'date-fns';
+import { useEffect } from 'react';
+import axios from '@/config/axiosConfig';
+import { formatObj } from '@/utils/format';
+import { reportSchema } from '@/utils/transformSchema';
+import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
 function RecentOrders() {
-  const cryptoOrders: CryptoOrder[] = [
+  useEffect(() => {
+    (async () => {
+      try {
+
+        const res = await axios.get("/get_reports");
+        console.log(res.data);
+        const result = (res.data.reports as Array<any>).map(i => {
+          return formatObj(reportSchema, i);
+        })
+        setCryptoOrders(result);
+      } catch(err) {
+        toast.error("Failed to fetch reports.");
+      }
+    })();
+  }, []);
+  const [cryptoOrders, setCryptoOrders] = useState([]);
+  console.log(cryptoOrders)
+  /* const cryptoOrders: CryptoOrder[] = [
     {
       id: '1',
       orderDetails: 'Fiat Deposit',
@@ -135,7 +158,7 @@ function RecentOrders() {
       cryptoCurrency: 'ADA',
       currency: '$'
     }
-  ];
+  ]; */
 
   return (
     <Card>
