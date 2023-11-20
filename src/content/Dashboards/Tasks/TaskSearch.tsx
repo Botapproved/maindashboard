@@ -95,7 +95,7 @@ function TaskSearch() {
           <Typography variant="subtitle2">
             Showing{' '}
             <Text color="black">
-              <b>57 tasks</b>
+              <b>57 Reports</b>
             </Text>
           </Typography>
         </Box>
@@ -158,7 +158,7 @@ function TaskSearch() {
               <Rating value={4} defaultValue={5} precision={1} readOnly />
             </Box>
             <Link href="#" variant="h3" color="text.primary">
-              Migrate hosting to a more performant web server datacenter
+            Anonymous Report on Suspected Drug Trading
             </Link>
             <Box
               sx={{
@@ -192,9 +192,7 @@ function TaskSearch() {
               }}
               color="text.secondary"
             >
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout beatae
-              vitae dicta sunt explicabo.
+              Include detailed information about the suspected drug trading activities. Provide descriptions of individuals involved, any identifiable markers, and specifics about the transactions or behaviors observed.
             </Typography>
             <Button size="small" variant="contained">
               View task
@@ -266,7 +264,7 @@ function TaskSearch() {
               <Rating value={4} defaultValue={5} precision={1} readOnly />
             </Box>
             <Link href="#" variant="h3" color="text.primary">
-              Improve conversion rated by integrating new analytics tools
+            Underage Substance Abuse Alert
             </Link>
             <Box
               sx={{
@@ -300,9 +298,7 @@ function TaskSearch() {
               }}
               color="text.secondary"
             >
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae ab illo.
+              The individual in question appears to be engaged in the consumption of illicit substances, posing a potential threat to their well-being. Immediate attention is recommended.
             </Typography>
             <Button size="small" variant="contained">
               View task
@@ -386,7 +382,7 @@ function TaskSearch() {
               <Rating value={4} defaultValue={5} precision={1} readOnly />
             </Box>
             <Link href="#" variant="h3" color="text.primary">
-              Increase the website speed on mobile and tablet devices
+            Anonymous Report on Suspected Drug Trading
             </Link>
             <Box
               sx={{
@@ -420,9 +416,7 @@ function TaskSearch() {
               }}
               color="text.secondary"
             >
-              Nemo enim ipsam voluptatem quia accusantium doloremque laudantium
-              voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
-              magni dolores eos qui ratione.
+              Include detailed information about the suspected drug trading activities. Provide descriptions of individuals involved, any identifiable markers, and specifics about the transactions or behaviors observed.
             </Typography>
             <Button size="small" variant="contained">
               View task
