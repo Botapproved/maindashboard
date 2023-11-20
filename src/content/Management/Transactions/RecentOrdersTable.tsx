@@ -52,8 +52,8 @@ interface Filters {
 
 const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
   const map = {
-    Complete: {
-      text: 'Failed',
+    Completed: {
+      text: 'Completed',
       color: 'success'
     },
     "In-Progress": {
@@ -388,7 +388,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                         <DeleteTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Add To Forum" arrow>
+                    {cryptoOrder.status !== "Completed" && <Tooltip title="Add To Forum" arrow>
                       <IconButton
                         sx={{
                           '&:hover': { background: theme.colors.primary.lighter },
@@ -403,7 +403,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                       >
                         <ForumIcon fontSize="small" />
                       </IconButton>
-                    </Tooltip>
+                    </Tooltip>}
                   </TableCell>
                 </TableRow>
               );
