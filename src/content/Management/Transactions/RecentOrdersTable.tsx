@@ -189,12 +189,25 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
       setSelectedCryptoOrders((prevSelectedCryptoOrders) =>
         prevSelectedCryptoOrders.map((id) => (id === reportId ? 'In-Progress' : id))
       );
+      toast.success("Successfully updated the report Status!");
       setRefetch(prev => !prev);
     } catch (error) {
+      toast.error("Error updating the report Status!");
       console.error('Error updating report status:', error);
     }
   };
 
+  const deleteReport = async (reportId) => {
+    try{
+      await axios.delete(`/delete_report/${reportId}`);
+      toast.success("Successfully Completed the Report Status!");
+      setRefetch(prev => !prev);
+    } catch (error){
+      toast.error("Error deleting the Report!");
+      console.error('Error updating report status:', error);
+    }
+
+  };
   
   return (
     <Card>
@@ -355,6 +368,10 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                         }}
                         color="inherit"
                         size="small"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          deleteReport(cryptoOrder.id);
+                        }}
                       >
                         <DeleteTwoToneIcon fontSize="small" />
                       </IconButton>
