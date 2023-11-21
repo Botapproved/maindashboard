@@ -22,6 +22,7 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { useRouter } from 'next/router';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -59,7 +60,13 @@ const UserBoxDescription = styled(Typography)(
 );
 
 function HeaderUserbox() {
-  const user = {
+  const router = useRouter();
+  console.log(router);
+  const user =  router. pathname == "/docdashboard/tasks" ? {
+    name: 'Kerala Therapists Association',
+    avatar: '/static/images/avatars/avatar_doc.jpg',
+    jobtitle: 'Doctor'
+  } : {
     name: 'Kerala Excise Dept.',
     avatar: '/static/images/avatars/avatar_police.jpg',
     jobtitle: 'Admin'
