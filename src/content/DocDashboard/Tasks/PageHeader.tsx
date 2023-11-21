@@ -62,7 +62,7 @@ function PageHeader() {
         </Box>
       </Box>
       <Box mt={{ xs: 3, md: 0 }}>
-        <a href="https://hackatly-doctor-consult.vercel.app/">
+        <a href="https://hackatly-doctor-consult.vercel.app/" target='_blank'>
         <Button variant="contained" startIcon={<DocumentScannerTwoToneIcon />}>
           Video Consultation
         </Button>
