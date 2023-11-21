@@ -178,12 +178,12 @@ function DashboardTasks() {
                   <Divider />
                 </Grid>
                 <Grid item xs={12}>
-                  <Box p={4}>
+                  {/* <Box p={4}>
                     <Projects />
-                  </Box>
+                  </Box> */}
                   <Divider />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <Box
                     sx={{
                       background: `${theme.colors.alpha.black[5]}`
@@ -207,7 +207,7 @@ function DashboardTasks() {
                       </Grid>
                     </Grid>
                   </Box>
-                </Grid>
+                </Grid> */}
               </>
             )}
             {currentTab === 'taskSearch' && (

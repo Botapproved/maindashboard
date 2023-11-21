@@ -19,7 +19,7 @@ function RecentOrders() {
         console.log(res.data);
         const result = (res.data.reports as Array<any>).map(i => {
           return formatObj(reportSchema, i);
-        })
+        });
         setCryptoOrders(result);
       } catch(err) {
         toast.error("Failed to fetch reports.");

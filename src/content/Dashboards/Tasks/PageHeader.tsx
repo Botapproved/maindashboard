@@ -36,8 +36,8 @@ const AvatarPageTitle = styled(Avatar)(
 
 function PageHeader() {
   const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
+    name: 'Kerala Excise Dept.',
+    avatar: '/static/images/avatars/avatar_police.jpg'
   };
 
   return (
@@ -53,7 +53,7 @@ function PageHeader() {
         </AvatarPageTitle>
         <Box>
           <Typography variant="h3" component="h3" gutterBottom>
-            Welcome, {user.name}!
+            Welcome, {user.name}
           </Typography>
           <Typography variant="subtitle2">
             Manage your day to day tasks with style! Enjoy a well built UI

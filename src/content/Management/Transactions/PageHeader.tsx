@@ -5,8 +5,8 @@ import NextLink from 'next/link'
 
 function PageHeader() {
   const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
+    name: 'Kerala Excise Dept.',
+    avatar: '/static/images/avatars/avatar_police.jpg'
   };
   return (
     <Grid container justifyContent="space-between" alignItems="center">
@@ -15,7 +15,8 @@ function PageHeader() {
           Reports
         </Typography>
         <Typography variant="subtitle2">
-          {user.name}, these are your recent reports
+          These are your recent reports
+          {/* {user.name}, these are your recent reports */}
         </Typography>
       </Grid>
       <Grid item>
