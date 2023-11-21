@@ -6,3 +6,12 @@ export const reportSchema = {
   "status": "status",
   "ruuid": "id"
 };
+
+export const surveySchema = {
+  "category": "orderDetails",
+  "idate": "orderDate",
+  "district": "sourceName",
+  "usage": "cryptoCurrency",
+  "reason": "status",
+  "id": "id"
+};
