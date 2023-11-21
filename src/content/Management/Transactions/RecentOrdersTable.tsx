@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from 'react';
+import { FC, ChangeEvent, useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
@@ -105,10 +105,20 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
     status: null
   });
   const [modalOpen, setModalOpen] = useState<null | string>(null);
+  const [reportModalOpen, setReportModalOpen] = useState<null | string>(null);
   const [formValues,setFormValues] = useState({
     grant: "", 
     description: "",
   })
+  const [selectedReport, setSelectedReport] = useState<null | any>(null);
+
+  useEffect(() => {
+    if(!reportModalOpen) return;
+    (async () => {
+      const res = await axios(`/get_single_report/${reportModalOpen}`);
+      setSelectedReport(res.data);
+    })();
+  }, [reportModalOpen])
   const statusOptions = [
     {
       id: 'all',
@@ -301,6 +311,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                       color="text.primary"
                       gutterBottom
                       noWrap
+                      onClick={(e) => {
+                        e.preventDefault();
+                        console.log("clicked")
+                        setReportModalOpen(cryptoOrder.id);
+                      }}
                     >
                       {cryptoOrder.orderDetails}
                     </Typography>
@@ -459,6 +474,93 @@ const RecentOrdersTable: FC<RecentOrdersTableProps | any> = ({ cryptoOrders, set
                 </Stack>
               </form>
             </DialogContent>
+      </Dialog>
+      <Dialog onClose={() => setReportModalOpen(null)} open={!!reportModalOpen} fullWidth>
+        
+            {selectedReport && (
+              <>
+              <DialogTitle>
+                  <Typography variant="h1">
+                    Report Details 
+                  </Typography>
+                  <hr></hr>
+                </DialogTitle>
+              <DialogContent>
+              {selectedReport.report.category && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Category:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.category}</span>
+                </Typography>
+              )}
+              {selectedReport.report.idate && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Report Date:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.idate}</span>
+                </Typography>
+              )}
+              {selectedReport.report.district && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>District:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.district}</span>
+                </Typography>
+              )}
+              {selectedReport.report.police_station && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Police Station:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.police_station}</span>
+                </Typography>
+              )}
+
+              {selectedReport.report.suspect_name && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Suspect Name:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.suspect_name}</span>
+                </Typography>
+              )}
+
+              {selectedReport.report.suspect_details && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Suspect Details:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.suspect_details}</span>
+                </Typography>
+              )}
+
+              {selectedReport.report.suspect_detailstype && (
+                <Typography variant="h4" fontWeight="bold" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Additional Suspect Details:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.suspect_detailstype}</span>
+                </Typography>
+              )}
+
+              {selectedReport.report.suspect_info && (
+                <Typography variant="h4" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Other Info:&nbsp; </span>
+                  <span style={{ color: '#666' }}>{selectedReport.report.suspect_info}</span>
+                </Typography>
+              )}
+
+              {selectedReport.report.suspect_img && (
+                <Typography variant="h4" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Suspect Image:&nbsp; </span>
+                  <br />
+                  <br />
+                  <img src={selectedReport.report.suspect_img} alt="Suspect Image" style={{ width: '330px', height: '250px' }} />
+                </Typography>
+              )}
+
+              {selectedReport.report.suspect_video && (
+                <Typography variant="h4" fontWeight="thin" color="text.primary" mb={2}>
+                  <span style={{ fontWeight: 'bold' }}>Suspect Video:</span>
+                  <img src={selectedReport.report.suspect_video} alt="Suspect Video" style={{ width: '100px', height: '280px' }} />
+                </Typography>
+              )}
+
+
+
+                {/* const res = async (e, ) */}
+              </DialogContent>
+              </>)
+            }
       </Dialog>
     </Card>
   );
